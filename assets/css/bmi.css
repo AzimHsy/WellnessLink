@@ -1,0 +1,130 @@
+main {
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid red; */
+  align-items: center;
+  height: 530px;
+  margin-top: 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.card {
+  background-color: #c4e8fe;
+  padding: 30px 52px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.card h1 {
+  text-transform: uppercase;
+  font-size: 2.4rem;
+  color: #007b9e;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #000;
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+form input {
+  width: 100%;
+  padding: 15px 12px;
+  outline: none;
+  border: 3px solid #007b9e;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+form input::placeholder {
+  font-size: 1rem;
+  color: #8f8f8fdf;
+}
+
+.one-row-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#age {
+  max-width: 50%;
+}
+
+.gender-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  /* border: 1px solid red; */
+}
+
+.gender-selection label {
+  font-size: 1rem;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  color: #4f4f4f;
+}
+
+.calculate-btn {
+  background-color: #007b9e;
+  color: white;
+  border: none;
+  padding: 18px 12px;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 22px;
+  transition: background-color 0.3s ease;
+}
+
+.calculate-btn:hover {
+  background-color: #006688;
+}
+
+.bmi-result {
+  margin-top: 17px;
+  font-size: 1.5rem;
+  color: #007b9e;
+}
+
+/* Decorations */
+.decorations {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.yoga-illustration,
+.doctor-illustration {
+  width: 60px;
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+img {
+  width: 100px;
+  height: auto;
+}

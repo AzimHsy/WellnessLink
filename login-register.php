@@ -40,14 +40,12 @@ if (isset($_POST['login'])) {
         if (password_verify($password, $user['password'])) {
             $_SESSION['username'] = $user['username'];
             $_SESSION['email'] = $user['email'];
-            header("Location: home.php");
+            header("Location: dashboard.php");
             exit();
-         }
+        }
     }
 
     $_SESSION['login_error'] = 'Incorrect email or password';
     header("Location: index.php");
     exit();
 }
-
-?>

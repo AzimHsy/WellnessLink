@@ -1,0 +1,153 @@
+.water-container {
+  position: relative;
+  width: 100%;
+  height: 580px;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.water-card {
+  background-color: #c4e8fe;
+  padding: 30px 52px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.heading {
+  width: 100%;
+  position: relative;
+}
+
+.heading h1 {
+  font-size: 2.4rem;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #007b9e;
+}
+
+.water-card form {
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.water-card .svg-holder {
+  /* border: 1px solid black; */
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* border: 1px solid red; */
+}
+
+.svg-holder svg {
+  width: 60%;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.water-content {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.text-progress {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 6px;
+  /* margin-bottom: 10px; */
+}
+
+.remain-glass {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.remain-glass h2:first-child {
+  font-size: 14px;
+  color: #007b9e;
+}
+
+.remain-glass h2:last-child {
+  font-size: 14px;
+  color: #707373;
+}
+
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #ffffffc0;
+  border-radius: 20px;
+}
+
+.progress-bar::before {
+  content: "";
+  position: absolute;
+  width: 70%;
+  height: 100%;
+  border-radius: 20px;
+  --angle: 270deg;
+  background: linear-gradient(
+    var(--angle),
+    oklab(81% -0.111 -0.09),
+    oklab(68.6% -0.053 -0.162)
+  );
+  left: 0;
+  top: 0;
+}
+
+.add-glass-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.add-glass-btn button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: #007b9e;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+}
+
+.health-tips {
+  width: 100%;
+  padding-top: 20px;
+}
+
+.health-tips h4 {
+  font-size: 1rem;
+  color: #00a6d3;
+}

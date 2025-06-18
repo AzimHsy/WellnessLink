@@ -1,0 +1,229 @@
+.heading {
+  /* border: 1px solid red; */
+  width: 100%;
+  text-align: center;
+  position: relative;
+  top: 20%;
+  /* display: inline-block; */
+}
+
+.heading h1 {
+  display: block;
+  color: #1d7087;
+  font-size: 3.2rem;
+}
+
+.heading h4 {
+  display: block;
+  font-size: 1.3rem;
+  margin-top: 10px;
+}
+
+.dashboard-container {
+  position: relative;
+  /* border: 1px solid red; */
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.edit-button {
+  position: absolute;
+  padding: 15px 18px;
+  background-color: #488fcd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  bottom: 5%;
+  right: 10%;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.edit-button ion-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.dashboard-content {
+  position: relative;
+  display: flex;
+  width: 55%;
+  height: 100%;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  /* border: 1px solid black; */
+  border-radius: 14px;
+  background-color: #fff;
+  padding: 40px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.line-divider {
+  height: 0.5px;
+  width: 100%;
+  background-color: #8f8f8f;
+}
+
+.line-divider-two {
+  width: 1px;
+  height: 73px;
+  background-color: #8f8f8f;
+}
+
+.row-1-content {
+  display: block;
+}
+
+.row-1-content h3,
+.row-2-content h3 {
+  color: #0275d8;
+}
+
+.row-1-content h3 {
+  font-size: 1.8rem;
+}
+
+.row-2-content h3 {
+  font-size: 1.5rem;
+}
+
+.dashboard-content p {
+  color: #2f2f2f;
+}
+
+.row-2-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+  gap: 20px;
+}
+
+.content-2-holder {
+  flex: 1 1 200px;
+  min-width: 150px;
+}
+
+.dashboard-chart-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.dashboard-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  width: 55%;
+  height: 100%;
+  margin: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.chart-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 45%;
+  min-width: 250px;
+}
+
+.chart-box h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #0275d8;
+}
+
+canvas {
+  max-height: 280px;
+  width: 100%;
+}
+
+.center-label {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  pointer-events: none;
+  user-select: none;
+}
+
+.doughnut-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.notif-holder {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 330px;
+  background-color: #6597c6;
+  border-radius: 17px;
+  padding: 20px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.notif-content-area {
+  overflow-y: auto;
+  height: 100%;
+  flex-grow: 1;
+  padding-right: 5px;
+}
+
+.notif-content-area::-webkit-scrollbar {
+  /* display: none; */
+  width: 6px;
+}
+
+.notif-content-area::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+}
+
+.notif-content-area::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.notif-header {
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.notif-header h4 {
+  font-size: 1.7rem;
+}
+
+.notif-content {
+  background-color: #89cbe17a;
+  padding: 10px 15px;
+  border-radius: 10px;
+  line-height: 1.1;
+  font-weight: 400;
+  margin-bottom: 10px;
+}

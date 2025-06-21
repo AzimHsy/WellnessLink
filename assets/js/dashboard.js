@@ -1,31 +1,67 @@
-// 💧 Water Intake Bar Chart
-const waterLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const waterData = [5, 8, 7, 6, 9, 4, 7];
+// ✅ Make sure Chart.js is loaded before this script runs
+console.log("Dashboard JS loaded");
 
-const waterCtx = document.getElementById("waterChart").getContext("2d");
-new Chart(waterCtx, {
-  type: "bar",
-  data: {
-    labels: waterLabels,
-    datasets: [
-      {
-        label: "Glasses of Water",
-        data: waterData,
-        backgroundColor: "#29b6f6",
-        borderRadius: 6,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 10,
+fetch("get-weekly-data.php")
+  .then((res) => res.json())
+  .then((data) => {
+    if (!Array.isArray(data)) {
+      console.error("Unexpected data format:", data);
+      return;
+    }
+    console.log("Fetched data:", data);
+
+    // 🗓️ Format dates to weekday names
+    const raw = data.map((item) => {
+      const date = new Date(item.date);
+      const day = date.toLocaleDateString("en-US", { weekday: "short" }); // 'Mon', 'Tue'...
+      return { day, value: item.glasses_taken };
+    });
+
+    // 🧠 Ensure all 7 days are shown
+    const fullWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const weekMap = new Map(raw.map((d) => [d.day, d.value]));
+    const labels = fullWeek;
+    const values = fullWeek.map((day) => weekMap.get(day) || 0);
+
+    // 🖌️ Draw chart
+    renderWaterChart(labels, values);
+  })
+  .catch((err) => {
+    console.error("Error fetching weekly water data:", err);
+  });
+
+function renderWaterChart(labels, values) {
+  const ctx = document.getElementById("waterChart");
+
+  if (!ctx) {
+    console.error("Canvas with id='waterChart' not found.");
+    return;
+  }
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Glasses of Water",
+          data: values,
+          backgroundColor: "#29b6f6",
+          borderRadius: 6,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 10,
+        },
       },
     },
-  },
-});
+  });
+}
 
 // BMI Charts
 const bmiCtx = document.getElementById("bmiChart").getContext("2d");
@@ -108,36 +144,6 @@ new Chart(medCtx, {
           label: (ctx) => `${ctx.label}: ${ctx.raw} day(s)`,
         },
       },
-    },
-  },
-});
-
-// Sleep Charts
-const sleepCtx = document.getElementById("sleepChart").getContext("2d");
-const sleepPercent = 72;
-
-document.getElementById("sleepPercent").textContent = sleepPercent + "%";
-
-new Chart(sleepCtx, {
-  type: "doughnut",
-  data: {
-    labels: ["Good Sleep", "Remaining"],
-    datasets: [
-      {
-        data: [sleepPercent, 100 - sleepPercent],
-        backgroundColor: ["#5cb85c", "#e0e0e0"],
-        borderWidth: 1,
-      },
-    ],
-  },
-  options: {
-    cutout: "72%",
-    plugins: {
-      legend: {
-        display: true, // ✅ Turn it on
-        position: "bottom", // ✅ Place it below the chart
-      },
-      tooltip: { enabled: true },
     },
   },
 });

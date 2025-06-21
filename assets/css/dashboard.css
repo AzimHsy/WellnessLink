@@ -1,16 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+
 .heading {
-  /* border: 1px solid red; */
   width: 100%;
   text-align: center;
   position: relative;
   top: 20%;
-  /* display: inline-block; */
 }
 
 .heading h1 {
+  /* text-transform: uppercase; */
   display: block;
   color: #1d7087;
   font-size: 3.2rem;
+}
+
+.heading span {
+  text-transform: capitalize;
+  color: #44a3f7;
+  font-family: "Karla", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  letter-spacing: -3px;
+  font-style: italic;
 }
 
 .heading h4 {
@@ -21,7 +32,6 @@
 
 .dashboard-container {
   position: relative;
-  /* border: 1px solid red; */
   width: 100%;
   padding: 10px;
   display: flex;
@@ -30,28 +40,58 @@
   margin-top: 25px;
 }
 
-.edit-button {
+/* From Uiverse.io by vinodjangid07 */
+.Btn {
   position: absolute;
-  padding: 15px 18px;
-  background-color: #488fcd;
   display: flex;
-  justify-content: center;
+  right: 2%;
+  bottom: 6%;
+  display: flex;
   align-items: center;
-  gap: 5px;
-  color: #fff;
-  border-radius: 10px;
+  justify-content: flex-start;
+  width: 100px;
+  height: 40px;
   border: none;
-  bottom: 5%;
-  right: 10%;
-  font-weight: 600;
-  font-size: 13px;
+  padding: 0px 20px;
+  background-color: #4887be;
+  font-family: "Poppins";
+  /* text-transform: uppercase; */
+  color: white;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1rem;
+  box-shadow: 5px 5px 0px #28557d;
+  transition-duration: 0.3s;
 }
 
-.edit-button ion-icon {
-  width: 22px;
-  height: 22px;
+.svg {
+  width: 16px;
+  position: absolute;
+  right: 0;
+  margin-top: 6px;
+  margin-right: 20px;
+  fill: white;
+  transition-duration: 0.3s;
 }
 
+.Btn:hover {
+  color: transparent;
+}
+
+.Btn:hover svg {
+  right: 43%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  transition-duration: 0.3s;
+}
+
+.Btn:active {
+  transform: translate(3px, 3px);
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 0px #28557d;
+}
 .dashboard-content {
   position: relative;
   display: flex;
@@ -64,7 +104,7 @@
   /* border: 1px solid black; */
   border-radius: 14px;
   background-color: #fff;
-  padding: 40px;
+  padding: 30px 40px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
@@ -86,19 +126,26 @@
 
 .row-1-content h3,
 .row-2-content h3 {
-  color: #0275d8;
+  color: #1a8cf0;
 }
 
 .row-1-content h3 {
-  font-size: 1.8rem;
+  font-size: 1.9rem;
+  margin-bottom: 10px;
 }
 
 .row-2-content h3 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
-.dashboard-content p {
+.row-1-content p {
   color: #2f2f2f;
+  font-size: 1.1rem;
+}
+
+.row-2-content p {
+  color: #2f2f2f;
+  font-size: 1rem;
 }
 
 .row-2-content {

@@ -1,4 +1,18 @@
-let glassesTaken = parseInt(localStorage.getItem("glassesTaken")) || 0;
+const initialInput = document.getElementById("initial-glasses");
+const initialGlasses = parseInt(initialInput.value) || 0;
+const userId = initialInput.dataset.userid;
+const storageKey = `glassesTaken_${userId}`;
+
+let glassesTaken = localStorage.getItem(storageKey);
+
+// If no localStorage for this user, use server value and store it
+if (glassesTaken === null || isNaN(parseInt(glassesTaken))) {
+  glassesTaken = initialGlasses;
+  localStorage.setItem(storageKey, glassesTaken);
+} else {
+  glassesTaken = parseInt(glassesTaken);
+}
+
 const maxGlasses = 8;
 
 const svgWater = document.querySelector(".water-fill");
@@ -6,21 +20,21 @@ const progressFill = document.querySelector(".progress-fill");
 const glassesText = document.getElementById("glasses-taken");
 const remainingText = document.getElementById("glasses-remaining");
 const addGlassBtn = document.getElementById("add-glass");
-const resetGlassBtn = document.getElementById("reset-glass"); // ✅ Move this up
+const resetGlassBtn = document.getElementById("reset-glass");
 
-// 🗓️ Reset logic (disabled for now during debugging)
+// 🔁 Optional Daily Reset Logic (disabled for now)
 if (false) {
   const today = new Date().toLocaleDateString();
-  const lastRecordedDate = localStorage.getItem("lastRecordedDate");
+  const lastRecordedDate = localStorage.getItem(`lastRecordedDate_${userId}`);
 
   if (lastRecordedDate !== today) {
     glassesTaken = 0;
-    localStorage.setItem("lastRecordedDate", today);
-    localStorage.setItem("glassesTaken", glassesTaken);
+    localStorage.setItem(`lastRecordedDate_${userId}`, today);
+    localStorage.setItem(storageKey, glassesTaken);
   }
 }
 
-// ✅ Add Reset Button Listener
+// 🔄 Reset Button
 resetGlassBtn.addEventListener("click", () => {
   Swal.fire({
     title: "Reset Water Intake?",
@@ -32,7 +46,6 @@ resetGlassBtn.addEventListener("click", () => {
   }).then((result) => {
     if (result.isConfirmed) {
       glassesTaken = 0;
-      localStorage.setItem("glassesTaken", glassesTaken);
       updateUI();
 
       Swal.fire({
@@ -46,14 +59,11 @@ resetGlassBtn.addEventListener("click", () => {
   });
 });
 
-// ✅ Now it's safe to call UI update
-updateUI();
-
+// ➕ Add Glass Button
 addGlassBtn.addEventListener("click", () => {
   if (glassesTaken >= maxGlasses) return;
 
   glassesTaken++;
-  localStorage.setItem("glassesTaken", glassesTaken);
   updateUI();
 
   if (glassesTaken === maxGlasses) {
@@ -68,6 +78,7 @@ addGlassBtn.addEventListener("click", () => {
   }
 });
 
+// 📊 Update UI
 function updateUI() {
   const ratio = glassesTaken / maxGlasses;
   svgWater.setAttribute("y", 1496 - 1496 * ratio);
@@ -78,10 +89,14 @@ function updateUI() {
     maxGlasses - glassesTaken
   }`;
 
+  // Save to localStorage per user
+  localStorage.setItem(storageKey, glassesTaken);
+
+  // Save to database
   saveWaterIntake();
 
+  // Button states
   addGlassBtn.disabled = glassesTaken >= maxGlasses;
-
   addGlassBtn.textContent =
     glassesTaken >= maxGlasses ? "Goal Completed!" : "Add Glass";
 
@@ -90,6 +105,7 @@ function updateUI() {
   resetGlassBtn.style.cursor = glassesTaken === 0 ? "not-allowed" : "pointer";
 }
 
+// 💾 Save to database
 function saveWaterIntake() {
   fetch("save_water.php", {
     method: "POST",
@@ -97,3 +113,6 @@ function saveWaterIntake() {
     body: `glasses_taken=${glassesTaken}`,
   });
 }
+
+// 🔁 Initial render
+updateUI();

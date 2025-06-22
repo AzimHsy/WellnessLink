@@ -1,6 +1,6 @@
 <?php
-session_start(); // assuming you're using sessions to track login
-include 'database/config.php'; // contains $conn for DB connection
+session_start();
+include 'database/config.php';
 
 // Get the logged-in user ID
 $user_id = $_SESSION['user_id'] ?? null;

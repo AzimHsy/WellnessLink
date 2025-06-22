@@ -2,6 +2,12 @@
     require 'database/config.php';
     session_start();
 
+    if (!isset($_SESSION['email'])) {
+        header("Location: index.php");
+        exit();
+    }
+
+
     if (isset($_SESSION['reminder_updated'])) {
         echo "<script>
                 document.addEventListener('DOMContentLoaded', function () {
@@ -55,8 +61,14 @@
         $reminderTime = $conn->real_escape_string($_POST['reminder-time']);
         $repeatType = $conn->real_escape_string($_POST['repeat']);
 
-        $stmt = $conn->prepare("INSERT INTO reminders (medication_name, dosage, dosage_type, reminder_time, repeat_type) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sisss", $name, $dosage, $dosageType, $reminderTime, $repeatType);
+        // ✅ Get user_id from email
+        $email = $_SESSION['email'];
+        $userResult = $conn->query("SELECT id FROM users WHERE email = '$email'");
+        $user = $userResult->fetch_assoc();
+        $user_id = $user['id'];
+
+        $stmt = $conn->prepare("INSERT INTO reminders (user_id, medication_name, dosage, dosage_type, reminder_time, repeat_type) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isisss", $user_id, $name, $dosage, $dosageType, $reminderTime, $repeatType);
 
         if ($stmt->execute()) {
             $_SESSION['reminder_added'] = true;
@@ -68,6 +80,7 @@
 
         $stmt->close();
     }
+
 
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_id'])) {
         $delete_id = intval($_POST['delete_id']);
@@ -100,11 +113,13 @@
         <!-- Letak File CSS kat sini, Buat File Lain -->
         <link rel="stylesheet" href="assets/css/interface.css" />
         <link rel="stylesheet" href="assets/css/reminder.css" />
+        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     </head>
 
     <body>
         <!-- Navbar -->
         <?php include 'includes/navbar.php'; ?>
+        <?php include 'includes/notification-box.php'; ?>
 
         <!-- Reminder Sections -->
         <div class="card-container">
@@ -168,7 +183,13 @@
                 <?php
                 require 'database/config.php';
 
-                $sql = "SELECT * FROM reminders ORDER BY reminder_time ASC";
+                $email = $_SESSION['email'];
+                $userResult = $conn->query("SELECT id FROM users WHERE email = '$email'");
+                $user = $userResult->fetch_assoc();
+                $user_id = $user['id'];
+
+                $sql = "SELECT * FROM reminders WHERE user_id = $user_id ORDER BY reminder_time ASC";
+
                 $result = $conn->query($sql);
                 $no = 1;
 
@@ -244,8 +265,12 @@
                     </div>
 
                     <div class="manual-btn">
-                        <button type="submit">Save</button>
-                        <button type="button" id="close-modal">Cancel</button>
+                        <button type="submit">
+                            <span>Save</span>
+                        </button>
+                        <button type="button" id="close-modal">
+                            <span>Cancel</span>
+                        </button>
                     </div>
                 </form>
             </div>

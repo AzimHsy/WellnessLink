@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       gsap.fromTo(
         modalContent,
         { scale: 0.8, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.7, ease: "bounce.out" }
+        { scale: 1, opacity: 1, duration: 1, ease: "bounce.out" }
       );
     });
   });
@@ -64,10 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.remove("visible"); // trigger fade out
         document.body.classList.remove("modal-open");
 
-        // wait for CSS transition to finish before hiding completely
         setTimeout(() => {
           modal.classList.add("hidden");
-        }, 300); // match CSS transition time
+        }, 300);
       },
     });
   });

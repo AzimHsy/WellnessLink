@@ -1,3 +1,34 @@
+<?php
+session_start();
+require_once 'database/config.php';
+
+if (!isset($_SESSION['email'])) {
+    header("Location: index.php");
+    exit();
+}
+
+// Get user ID
+$email = $_SESSION['email'];
+$userResult = $conn->query("SELECT id FROM users WHERE email = '$email'");
+$user = $userResult->fetch_assoc();
+$user_id = $user['id'];
+
+// Get today's water intake
+$today = date('Y-m-d');
+$stmt = $conn->prepare("SELECT glasses_taken FROM water_intake WHERE user_id = ? AND date = ?");
+$stmt->bind_param("is", $user_id, $today);
+$stmt->execute();
+$stmt->bind_result($glasses_taken);
+$stmt->fetch();
+$stmt->close();
+
+// If no entry today, default to 0
+if (!isset($glasses_taken)) {
+    $glasses_taken = 0;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,11 +39,14 @@
     <!-- Letak File CSS kat sini, Buat File Lain -->
     <link rel="stylesheet" href="assets/css/interface.css" />
     <link rel="stylesheet" href="assets/css/water.css" />
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 
 <body>
     <!-- Navbar -->
     <?php include 'includes/navbar.php'; ?>
+    <?php include 'includes/notification-box.php'; ?>
 
     <!-- Hero Section -->
     <div class="water-container">
@@ -39,10 +73,10 @@
 
                 <div class="text-progress">
                     <div class="remain-glass">
-                        <h2 id="glasses-taken">0 glasses taken</h2>
-                        <h2 id="glasses-remaining">remaining glasses : 8</h2>
-
+                        <h2 id="glasses-taken"><?= $glasses_taken ?> glasses taken</h2>
+                        <h2 id="glasses-remaining">remaining glasses : <?= max(0, 8 - $glasses_taken) ?></h2>
                     </div>
+                    <input type="hidden" id="initial-glasses" value="<?= $glasses_taken ?>" data-userid="<?= $user_id ?>">
                     <div class="progress-bar">
                         <div class="progress-fill"></div>
                     </div>

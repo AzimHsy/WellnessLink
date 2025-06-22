@@ -40,7 +40,6 @@
   margin-top: 25px;
 }
 
-/* From Uiverse.io by vinodjangid07 */
 .Btn {
   position: absolute;
   display: flex;
@@ -49,13 +48,12 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 100px;
+  width: 90px;
   height: 40px;
   border: none;
   padding: 0px 20px;
   background-color: #4887be;
   font-family: "Poppins";
-  /* text-transform: uppercase; */
   color: white;
   font-weight: 400;
   cursor: pointer;
@@ -68,8 +66,9 @@
 .svg {
   width: 16px;
   position: absolute;
-  right: 0;
-  margin-top: 6px;
+  right: -7%;
+  /* transform: translateY(2px); */
+  margin-top: 7px;
   margin-right: 20px;
   fill: white;
   transition-duration: 0.3s;
@@ -117,6 +116,7 @@
 .line-divider-two {
   width: 1px;
   height: 73px;
+  margin-right: 10px;
   background-color: #8f8f8f;
 }
 
@@ -150,11 +150,11 @@
 
 .row-2-content {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
   margin-top: 10px;
-  gap: 20px;
 }
 
 .content-2-holder {
@@ -244,7 +244,6 @@ canvas {
 }
 
 .notif-content-area::-webkit-scrollbar {
-  /* display: none; */
   width: 6px;
 }
 
@@ -254,7 +253,7 @@ canvas {
 }
 
 .notif-content-area::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: #fff;
 }
 
 .notif-header {
@@ -273,4 +272,189 @@ canvas {
   line-height: 1.1;
   font-weight: 400;
   margin-bottom: 10px;
+}
+
+/* Edit Card */
+.edit-card-holder {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  position: fixed;
+  z-index: 9999;
+  display: none;
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-card {
+  height: auto;
+  background-color: #c8e4fd;
+  border-radius: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 400px;
+  margin-top: 4em;
+  padding: 30px 40px;
+  box-shadow: 0 0 15px #b8b8b875;
+}
+
+.edit-card form {
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.input-type {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  height: max-content;
+  gap: 2px;
+  /* border: 1px solid red; */
+}
+
+.input-type label {
+  color: #215c6c;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.input-type input,
+.input-type select {
+  width: 100%;
+  font-size: 1rem;
+  padding: 12px 16px;
+  border: 2px solid #007b9e;
+  border-radius: 10px;
+  outline: none;
+  /* color: #8f8f8f; */
+}
+
+.input-type input::placeholder {
+  color: #8f8f8f;
+}
+
+.records-btn {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.records-btn button {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  background: #4c7bbb;
+  font-family: "Montserrat", sans-serif;
+  box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  margin-top: 10px;
+  border: none;
+}
+
+.records-btn button:last-child {
+  background: #a7a7a7;
+  transition: all 0.2s ease;
+}
+
+.records-btn button:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background: #53c1dc;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+.records-btn button:not(:last-child):hover:after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+.records-btn button span {
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  padding: 12px 16px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  /* letter-spacing: 0.3em; */
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+.edit-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(17, 17, 17, 0.305);
+  z-index: -1;
+}
+
+.records-btn button:not(:last-child):hover span {
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bmi-tag {
+  font-weight: 600;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.bmi-tag.underweight {
+  color: #00bcd4;
+  background-color: #e0f7fa;
+}
+
+.bmi-tag.normal-weight {
+  color: #4caf50;
+  background-color: #e8f5e9;
+}
+
+.bmi-tag.overweight {
+  color: #ff9800;
+  background-color: #fff3e0;
+}
+
+.bmi-tag.obese {
+  color: #f44336;
+  background-color: #ffebee;
 }

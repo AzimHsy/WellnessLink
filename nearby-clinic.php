@@ -13,11 +13,14 @@ session_start();
   <!-- Letak File CSS kat sini, Buat File Lain -->
   <link rel="stylesheet" href="assets/css/interface.css" />
   <link rel="stylesheet" href="assets/css/maps.css" />
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 
 <body>
   <!-- Navbar -->
   <?php include 'includes/navbar.php'; ?>
+  <?php include 'includes/notification-box.php'; ?>
 
   <!-- Hero Sections -->
   <div class="clinic-container">

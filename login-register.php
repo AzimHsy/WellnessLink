@@ -5,6 +5,7 @@
     session_start();
     require_once 'database/config.php';
 
+    // Register Process
     if (isset($_POST['register'])) {
         $name = $_POST['username'];
         $email = $_POST['email'];
@@ -20,13 +21,22 @@
                 $_SESSION['register_error'] = 'Email is already registered';
             } else {
                 $conn->query("INSERT INTO users (username, email, password) VALUES ('$name', '$email', '$hashedPassword')");
-                $_SESSION['register_success'] = 'Registration successful. You can now log in.';
+
+                // ✅ Get the correct inserted user_id
+                $user_id = $conn->insert_id;
+
+                // ✅ Set session values correctly
+                $_SESSION['register_success'] = 'Registration successful.';
+                $_SESSION['username'] = $name;
+                $_SESSION['email'] = $email;
+                $_SESSION['user_id'] = $user_id;
             }
         }
 
         header("Location: index.php");
         exit();
     }
+
 
     // Login Process
 
@@ -40,17 +50,15 @@
             if (password_verify($password, $user['password'])) {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['user_id'] = $user['id'];
 
-                // Get user ID
                 $user_id = $user['id'];
-
-                // Check if user already has health records
                 $checkHealth = $conn->query("SELECT id FROM health_records WHERE user_id = $user_id");
 
                 if ($checkHealth->num_rows > 0) {
-                    header("Location: dashboard.php"); // returning user
+                    header("Location: dashboard.php");
                 } else {
-                    header("Location: health-records.php"); // new user
+                    header("Location: health-records.php");
                 }
                 exit();
             }

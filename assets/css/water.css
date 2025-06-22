@@ -86,13 +86,6 @@
   color: #4e5d6c;
 }
 
-.svg-holder {
-  border: 1px solid red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .svg-mask {
   width: 100%;
   height: max-content;

@@ -147,3 +147,66 @@ new Chart(medCtx, {
     },
   },
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const body = document.body;
+  const updateSuccess = body.getAttribute("data-update-success");
+  const editBtn = document.getElementById("edit-btn");
+  const editCard = document.querySelector(".edit-card-holder");
+  const cancelBtn = document.getElementById("cancel-edit");
+
+  if (updateSuccess === "1") {
+    Swal.fire({
+      icon: "success",
+      title: "Updated!",
+      text: "Your health record has been successfully updated.",
+      confirmButtonColor: "#3085d6",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  }
+
+  const diseaseSelect = document.getElementById("disease-select");
+  diseaseSelect.addEventListener("change", function () {
+    const container = document.getElementById("custom-disease-container");
+    container.style.display = this.value === "Others" ? "block" : "none";
+  });
+
+  editBtn.addEventListener("click", () => {
+    editCard.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    editCard.scrollIntoView({ behavior: "smooth" });
+
+    gsap.to(".edit-card", {
+      duration: 1,
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      ease: "bounce.out",
+    });
+
+    gsap.fromTo(
+      ".edit-card-holder",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.3, ease: "power1.out" }
+    );
+  });
+
+  // Reset initial states before animation
+  gsap.set(".edit-card", { opacity: 0, scale: 0.85 });
+
+  cancelBtn.addEventListener("click", () => {
+    // Animate out
+    gsap.to(".edit-card", {
+      duration: 0.3,
+      opacity: 0,
+      scale: 0.85,
+      ease: "power2.in",
+      onComplete: () => {
+        // Only hide after animation completes
+        editCard.style.display = "none";
+        document.body.style.overflowY = "auto";
+      },
+    });
+  });
+});

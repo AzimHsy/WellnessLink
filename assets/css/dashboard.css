@@ -194,11 +194,32 @@
 
 .chart-box {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1 1 45%;
   min-width: 250px;
+}
+
+.chart-overlay {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 40px);
+  background-color: rgba(0, 0, 0, 0.65);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 12px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .chart-box h3 {
@@ -465,4 +486,248 @@ canvas {
 .bmi-tag.obese {
   color: #f44336;
   background-color: #ffebee;
+}
+
+.info-section-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-content: center;
+  margin-top: 10px;
+}
+
+.info-section {
+  width: 55%;
+  height: auto;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+  border-radius: 13px;
+  background-color: #fff;
+}
+
+.info-text-holder {
+  text-align: center;
+  max-width: 100%;
+}
+
+.heading-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.heading-text h1 {
+  font-size: 2.4rem;
+}
+
+.heading-text p {
+  max-width: 650px;
+}
+
+.info-photos-holder {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-photos {
+  width: 100%;
+  background-color: #e26868;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  height: 120px;
+  text-align: center;
+  padding: 10px;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bmi-label {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.bmi-range {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-top: 5px;
+}
+
+/* Color overrides per category */
+.info-photos.underweight {
+  background-color: #00bfff;
+}
+
+.info-photos.normal {
+  background-color: #28a745;
+}
+
+.info-photos.overweight {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.info-photos.obese-i {
+  background-color: #fd7e14;
+}
+
+.info-photos.obese-ii {
+  background-color: #dc3545;
+}
+
+.visit-website-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.visit-website {
+  position: relative;
+  width: 55%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 13px;
+  padding: 25px 15px;
+  background-color: #fff;
+  gap: 16px;
+  /* gap: 30px; */
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content a {
+  width: 440px;
+  height: 245px;
+}
+
+.content video {
+  border-radius: 6px;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.content h1 {
+  max-width: 500px;
+  line-height: 1;
+}
+
+.lottie-anim {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-10px);
+}
+
+.lottie-anim dotlottie-player {
+  width: 260px;
+  height: 260px;
+}
+
+.delete-acc-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-acc-container button {
+  padding: 17px 30px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #f35555;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-acc-container button:hover {
+  background-color: #f43030;
+}
+
+.video-overlay {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 640px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.video-overlay span {
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  font-size: 1rem;
+}
+
+span ion-icon {
+  transform: rotate(-40deg);
+  width: 20px;
+  height: 20px;
+}
+
+.video-overlay video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+.video-overlay .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 0.4s ease;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.video-overlay:hover .overlay {
+  opacity: 1;
 }

@@ -46,65 +46,77 @@
         <title>Document</title>
         <link rel="stylesheet" href="assets/css/interface.css">
         <link rel="stylesheet" href="assets/css/records.css">
+        <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     </head>
 
     <body>
 
         <div class="records-container">
-            <div class="heading">
-                <h1>Welcome <span><?php echo htmlspecialchars($_SESSION['username']); ?>,</span> Please fill up the information before we jump into the system</h1>
+            <div class="lottie-anim-holder">
+                <dotlottie-player
+                    src="https://lottie.host/eb860977-3e52-4c45-91c8-4f115892b9b6/Ql5shUZY6p.lottie"
+                    background="transparent"
+                    speed="1"
+                    loop
+                    autoplay></dotlottie-player>
             </div>
-            <div class="records-card">
-                <form id="health-form" action="health-records.php" method="POST">
-                    <div class="input-type">
-                        <label>Disease</label>
-                        <select name="disease" id="disease-select" required onchange="toggleCustomDisease(this.value)">
-                            <option value="" disabled selected>Select Disease</option>
-                            <option>Type 2 Diabetes</option>
-                            <option>Hypertension</option>
-                            <option>Asthma</option>
-                            <option>High Cholesterol</option>
-                            <option>Heart Disease</option>
-                            <option>Arthritis</option>
-                            <option>Depression</option>
-                            <option>Thyroid Disorder</option>
-                            <option>Chronic Kidney Disease</option>
-                            <option value="Others">Others</option>
-                        </select>
-                    </div>
 
-                    <div class="input-type" id="custom-disease-container">
-                        <label>Specify Other Disease</label>
-                        <input type="text" name="custom_disease" id="custom-disease" placeholder="Enter disease name">
-                    </div>
+            <div class="form-container">
+                <div class="heading">
+                    <h1>Welcome <span><?php echo htmlspecialchars($_SESSION['username']); ?>,</span> Please fill in your details before we get started.</h1>
+                </div>
+                <div class="records-card">
+                    <form id="health-form" action="health-records.php" method="POST">
+                        <div class="input-type">
+                            <label>Disease</label>
+                            <select name="disease" id="disease-select" required onchange="toggleCustomDisease(this.value)">
+                                <option value="" disabled selected>Select Disease</option>
+                                <option>Type 2 Diabetes</option>
+                                <option>Hypertension</option>
+                                <option>Asthma</option>
+                                <option>High Cholesterol</option>
+                                <option>Heart Disease</option>
+                                <option>Arthritis</option>
+                                <option>Depression</option>
+                                <option>Thyroid Disorder</option>
+                                <option>Chronic Kidney Disease</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
 
-                    <div class="input-type">
-                        <label>Medication Name</label>
-                        <input type="text" name="medication_name" required>
-                    </div>
-                    <div class="input-type">
-                        <label>Medication Frequency</label>
-                        <select name="frequency" required>
-                            <option value="" disabled selected>Choose Frequency</option>
-                            <option>Once daily</option>
-                            <option>Two times daily</option>
-                            <option>Three times daily</option>
-                            <option>Before meals</option>
-                            <option>After meals</option>
-                            <option>Every 8 hours</option>
-                            <option>As needed</option>
-                        </select>
-                    </div>
-                    <div class="input-type">
-                        <label>Allergies / Alerts</label>
-                        <input type="text" name="allergies" required>
-                    </div>
-                    <div class="records-btn">
-                        <button type="submit" name="submit_form">
-                            <span>Submit</span>
-                        </button>
-                    </div>
-                </form>
+                        <div class="input-type" id="custom-disease-container">
+                            <label>Specify Other Disease</label>
+                            <input type="text" name="custom_disease" id="custom-disease" placeholder="Enter disease name">
+                        </div>
+
+                        <div class="input-type">
+                            <label>Medication Name</label>
+                            <input type="text" name="medication_name" required>
+                        </div>
+                        <div class="input-type">
+                            <label>Medication Frequency</label>
+                            <select name="frequency" required>
+                                <option value="" disabled selected>Choose Frequency</option>
+                                <option>Once daily</option>
+                                <option>Two times daily</option>
+                                <option>Three times daily</option>
+                                <option>Before meals</option>
+                                <option>After meals</option>
+                                <option>Every 8 hours</option>
+                                <option>As needed</option>
+                            </select>
+                        </div>
+                        <div class="input-type">
+                            <label>Allergies / Alerts</label>
+                            <input type="text" name="allergies" required>
+                        </div>
+                        <div class="records-btn">
+                            <button type="submit" name="submit_form">
+                                <span>Submit</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 

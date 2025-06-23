@@ -134,9 +134,8 @@ $description = $diseaseDescriptions[$disease] ?? 'No description available for t
     </div>
   </div>
 
-
   <div class="heading">
-    <h1>Hi <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>, here's your health snapshot!</h1>
+    <h1>Hi <span><?php echo htmlspecialchars($_SESSION['username']); ?>,</span> here's your health snapshot!</h1>
     <h4>Health Tips: <span id="header-health-tip">Stay active for at least 30 minutes each day</span></h4>
   </div>
 
@@ -189,12 +188,14 @@ $description = $diseaseDescriptions[$disease] ?? 'No description available for t
       <!-- Water Intake Chart -->
       <div class="chart-box">
         <h3>Weekly Water Intake</h3>
+        <div class="chart-overlay">No progress available</div>
         <canvas id="waterChart"></canvas>
       </div>
 
       <!-- BMI Trend Line Chart -->
       <div class="chart-box">
         <h3>BMI Trend</h3>
+        <div class="chart-overlay">No progress available</div>
         <canvas id="bmiChart"></canvas>
       </div>
 
@@ -203,6 +204,7 @@ $description = $diseaseDescriptions[$disease] ?? 'No description available for t
       <div class="chart-box">
         <h3>Medication Adherence</h3>
         <div class="doughnut-container">
+          <div class="chart-overlay">No progress available</div>
           <canvas id="medChart"></canvas>
           <div class="center-label" id="medPercent">86%</div>
         </div>
@@ -235,8 +237,82 @@ $description = $diseaseDescriptions[$disease] ?? 'No description available for t
     </div>
   </div>
 
+  <div class="info-section-container">
+    <div class="info-section">
+
+      <div class="info-text-holder">
+        <div class="heading-text">
+          <h1>Body Mass Index (BMI)</h1>
+          <p>BMI is a measurement of a person's leanness or corpulence based on their height and weight, and is intended to quantify tissue mass.
+          </p>
+        </div>
+      </div>
+      <div class="info-photos-holder">
+        <div class="info-photos underweight">
+          <div>
+            <div class="bmi-label">Underweight</div>
+            <div class="bmi-range">BMI &lt; 18.5</div>
+          </div>
+        </div>
+        <div class="info-photos normal">
+          <div>
+            <div class="bmi-label">Normal Weight</div>
+            <div class="bmi-range">18.5 – 22.9</div>
+          </div>
+        </div>
+        <div class="info-photos overweight">
+          <div>
+            <div class="bmi-label">Overweight</div>
+            <div class="bmi-range">23.0 – 24.9</div>
+          </div>
+        </div>
+        <div class="info-photos obese-i">
+          <div>
+            <div class="bmi-label">Obese I</div>
+            <div class="bmi-range">25.0 – 29.9</div>
+          </div>
+        </div>
+        <div class="info-photos obese-ii">
+          <div>
+            <div class="bmi-label">Obese II</div>
+            <div class="bmi-range">≥ 30.0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="visit-website-container">
+    <div class="visit-website">
+      <div class="content">
+        <h1>Explore our website to stay informed about health.</h1>
+        <a href="webPage/index.php" target="_blank" class="video-overlay">
+          <video loop autoplay muted src="img/website-video.mp4"></video>
+          <div class="overlay">
+            <span>Visit Website<ion-icon name="link-outline"></ion-icon></span>
+          </div>
+        </a>
+      </div>
+      <div class="delete-acc-container">
+        <div class="lottie-anim">
+          <dotlottie-player
+            src="https://lottie.host/53f827de-7c86-4716-9683-7f23a3789691/GgnJ7yqpc8.lottie"
+            background="transparent"
+            speed="1"
+            loop
+            autoplay></dotlottie-player>
+        </div>
+        <div class="delete-acc-btn">
+          <button id="deleteAccountBtn">Delete Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Functions -->
   <?php include 'includes/functions.php'; ?>
+  <?php include 'includes/hover-me.php'; ?>
 
   <!-- From Uiverse.io by alexruix -->
   <div class="loader"></div>

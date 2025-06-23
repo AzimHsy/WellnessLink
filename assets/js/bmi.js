@@ -27,12 +27,12 @@ document
       color = "#00bcd4"; // blue
       advice =
         "Consider a balanced diet with healthy fats and protein. You may want to consult a nutritionist for weight gain strategies.";
-    } else if (bmi >= 18.5 && bmi < 24.9) {
+    } else if (bmi >= 18.5 && bmi <= 22.9) {
       category = "Normal Weight";
       color = "#4caf50"; // green
       advice =
         "Great job! Keep maintaining a healthy lifestyle with regular exercise and a balanced diet.";
-    } else if (bmi >= 25 && bmi < 29.9) {
+    } else if (bmi >= 23 && bmi <= 24.9) {
       category = "Overweight";
       color = "#ff9800"; // orange
       advice =

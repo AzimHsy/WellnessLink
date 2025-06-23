@@ -53,6 +53,7 @@ session_start();
     <?php include 'includes/bg-bmi.php'; ?>
     <!-- Functions -->
     <?php include 'includes/functions.php'; ?>
+    <?php include 'includes/hover-me.php'; ?>
 
 
     <!-- From Uiverse.io by alexruix -->

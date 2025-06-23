@@ -57,13 +57,14 @@ session_start();
       <div id="clinics"></div>
     </div>
   </div>
-
+  <!-- 
   <div class="background-clinic">
     <img src="img/car-bg.svg" alt="">
-  </div>
+  </div> -->
 
   <!-- Functions -->
   <?php include 'includes/functions.php'; ?>
+  <?php include 'includes/hover-me.php'; ?>
 
   <!-- From Uiverse.io by alexruix -->
   <div class="loader"></div>

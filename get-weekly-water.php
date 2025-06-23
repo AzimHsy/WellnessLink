@@ -10,9 +10,6 @@ if (!$user_id) {
     exit;
 }
 
-// echo json_encode(["logged_in_user_id" => $user_id]);
-// exit;
-
 $sql = "SELECT date, glasses_taken FROM water_intake
         WHERE user_id = ?
         AND date >= CURDATE() - INTERVAL 6 DAY
@@ -27,5 +24,9 @@ while ($row = $result->fetch_assoc()) {
     $data[] = $row;
 }
 
+// 🛡️ Prevent browser caching
 header('Content-Type: application/json');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Expires: 0');
+
 echo json_encode($data, JSON_PRETTY_PRINT);

@@ -5,6 +5,8 @@
   font-style: normal;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -711,4 +713,21 @@ svg {
 .background img:last-child {
   transform: translateY(150px);
   margin-right: -16%;
+}
+
+.lottie-holder {
+  position: fixed;
+  width: 140px;
+  height: 140px;
+  left: 4%;
+  bottom: 6%;
+  transform: rotate(90deg);
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.lottie-holder p {
+  position: fixed;
+  transform: rotate(-70deg);
+  font-family: "Caveat", cursive;
 }

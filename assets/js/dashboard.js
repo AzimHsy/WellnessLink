@@ -1,21 +1,24 @@
-fetch("get-weekly-water.php")
+fetch("get-weekly-water.php?t=" + new Date().getTime())
   .then((res) => res.json())
   .then((data) => {
     if (!Array.isArray(data)) {
       console.error("Unexpected data format:", data);
       return;
     }
-
     const today = new Date();
 
-    // 📆 Prepare full week: short day name for x-axis, full date for tooltip
     const last7Days = Array.from({ length: 7 }).map((_, i) => {
       const d = new Date();
       d.setDate(today.getDate() - (6 - i));
       return {
         day: d.toLocaleDateString("en-US", { weekday: "short" }), // e.g. "Mon"
         date: d.toLocaleDateString("en-US", { month: "short", day: "numeric" }), // e.g. "Jun 20"
-        fullDate: d.toISOString().split("T")[0], // "YYYY-MM-DD" for matching
+        fullDate:
+          d.getFullYear() +
+          "-" +
+          String(d.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          String(d.getDate()).padStart(2, "0"),
       };
     });
 
@@ -28,6 +31,7 @@ fetch("get-weekly-water.php")
     const values = last7Days.map((d) => dataMap.get(d.fullDate) || 0);
     const tooltipDates = last7Days.map((d) => d.date);
 
+    toggleChartOverlay("waterChart", values);
     renderWaterChart(labels, values, tooltipDates);
   })
   .catch((err) => {
@@ -91,6 +95,7 @@ fetch("get-bmi-trend.php")
     );
     const values = data.map((item) => parseFloat(item.bmi));
 
+    toggleChartOverlay("bmiChart", values);
     const bmiCtx = document.getElementById("bmiChart").getContext("2d");
     new Chart(bmiCtx, {
       type: "line",
@@ -140,6 +145,7 @@ fetch("get-medication-adherence.php")
 
     document.getElementById("medPercent").textContent = adherence + "%";
 
+    toggleChartOverlay("medChart", [takenDays, skippedDays]);
     const medCtx = document.getElementById("medChart").getContext("2d");
     new Chart(medCtx, {
       type: "doughnut",
@@ -170,6 +176,20 @@ fetch("get-medication-adherence.php")
       },
     });
   });
+
+function toggleChartOverlay(chartId, valuesArray) {
+  const overlay = document
+    .querySelector(`#${chartId}`)
+    .closest(".chart-box")
+    .querySelector(".chart-overlay");
+  const hasData =
+    Array.isArray(valuesArray) && valuesArray.some((v) => parseFloat(v) > 0);
+  if (!hasData) {
+    overlay.style.opacity = "1";
+  } else {
+    overlay.style.opacity = "0";
+  }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   const body = document.body;
@@ -264,4 +284,32 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   setInterval(updateHeaderTip, 5000);
+
+  document.getElementById("deleteAccountBtn").addEventListener("click", () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Your account and all data will be permanently deleted.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e74c3c",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch("delete-account.php", {
+          method: "POST",
+        })
+          .then((res) => res.text())
+          .then((data) => {
+            Swal.fire(
+              "Deleted!",
+              "Your account has been deleted.",
+              "success"
+            ).then(() => {
+              window.location.href = "index.php"; // Redirect to homepage or login
+            });
+          });
+      }
+    });
+  });
 });

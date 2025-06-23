@@ -1,12 +1,35 @@
+body {
+  padding-bottom: 0;
+}
+
 .records-container {
   width: 100%;
   height: 100svh;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
   gap: 50px;
+  overflow: hidden;
+}
+
+.lottie-anim-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lottie-anim-holder dotlottie-player {
+  width: 450px;
+  height: 450px;
+}
+
+.form-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
+  gap: 30px;
 }
 
 .heading {
@@ -14,17 +37,17 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .heading h1 {
-  max-width: 60%;
+  max-width: 80%;
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
 }
 
 .records-card {
-  background-color: #aedefd;
+  background-color: #b1daf5;
   padding: 30px 45px;
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);

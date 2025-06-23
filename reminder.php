@@ -240,6 +240,7 @@
         <!-- Functions -->
         <?php include 'includes/functions.php'; ?>
 
+
         <!-- From Uiverse.io by alexruix -->
         <div class="loader"></div>
 

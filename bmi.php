@@ -37,14 +37,23 @@ session_start();
                         <label><input type="radio" name="gender" value="female">Female</label>
                     </div>
                 </div>
-                <button type="submit" class="calculate-btn">Calculate BMI</button>
+                <div class="btn-holder">
+                    <button type="submit" class="calculate-btn">
+                        <span>Submit</span>
+                    </button>
+                </div>
             </form>
-            <div id="result" class="result"></div>
+            <div class="svg-holder">
+                <img src="img/workout.svg" alt="">
+                <img src="img/exercise.svg" alt="">
+            </div>
         </div>
     </main>
-
+    <!-- Background -->
+    <?php include 'includes/bg-bmi.php'; ?>
     <!-- Functions -->
     <?php include 'includes/functions.php'; ?>
+
 
     <!-- From Uiverse.io by alexruix -->
     <div class="loader"></div>
@@ -66,6 +75,9 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/interface.js" defer></script>
     <script src="assets/js/bmi.js" defer></script>
+    <script src="assets/js/alarm-reminder.js" defer></script>
+    <script src="assets/js/auto-break-notification.js"></script>
+
 </body>
 
 </html>

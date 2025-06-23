@@ -2,6 +2,8 @@
 session_start();
 require_once 'database/config.php';
 
+
+
 if (!isset($_SESSION['email'])) {
     header("Location: index.php");
     exit();
@@ -82,21 +84,28 @@ if (!isset($glasses_taken)) {
                     </div>
                 </div>
                 <div class="add-glass-btn">
-                    <button type="button" id="add-glass">+ Add Glass Button</button>
+                    <button class="button" id="add-glass"></button>
                 </div>
                 <div class="health-tips">
-                    <h4>Stay Hydrated for better Health</h4>
+                    <h4 id="health-tip-text">Stay Hydrated for better Health</h4>
                 </div>
             </form>
             <div class="reset-btn">
-                <button id="reset-glass">
-                    <ion-icon name="refresh-sharp"></ion-icon>Reset Glass
+                <button id="reset-glass" class="pushable">
+                    <span class="shadow"></span>
+                    <span class="edge"></span>
+                    <span class="front">Reset</span>
                 </button>
             </div>
-
         </div>
     </div>
 
+    <div class="bg-water">
+        <div class="bg-water-holder">
+            <img src="img/exercise.svg" alt="">
+            <img src="img/water-bg-2.svg" alt="">
+        </div>
+    </div>
     <!-- Functions -->
     <?php include 'includes/functions.php'; ?>
 
@@ -120,6 +129,9 @@ if (!isset($glasses_taken)) {
     <!-- Link Javascript Files, Buat File Lain -->
     <script src="assets/js/interface.js" defer></script>
     <script src="assets/js/water.js" defer></script>
+    <script src="assets/js/alarm-reminder.js" defer></script>
+    <script src="assets/js/auto-break-notification.js"></script>
+
 
 </body>
 

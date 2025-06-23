@@ -7,53 +7,6 @@
         exit();
     }
 
-
-    if (isset($_SESSION['reminder_updated'])) {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function () {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Updated!',
-                    text: 'Reminder updated successfully.',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                });
-            </script>";
-        unset($_SESSION['reminder_updated']);
-    }
-
-    if (isset($_SESSION['reminder_deleted'])) {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function () {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Deleted!',
-                    text: 'Reminder has been successfully deleted.',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                });
-            </script>";
-        unset($_SESSION['reminder_deleted']);
-    }
-
-
-    if (isset($_SESSION['reminder_added'])) {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function () {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Reminder Set!',
-                    text: 'Your medication reminder has been added.',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                });
-            </script>";
-        unset($_SESSION['reminder_added']);
-    }
-
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['medic-name'])) {
         $name = $conn->real_escape_string(trim($_POST['medic-name']));
         $dosage = intval($_POST['dosage']);
@@ -153,9 +106,9 @@
                                 <option value="weekly">Weekly</option>
                             </select>
                         </div>
-
-                        <!-- Submit Button -->
-                        <button id="set-reminder-btn" type="submit">Set Reminder</button>
+                        <button type="submit" id="set-reminder-btn">
+                            <span>Set Reminder</span>
+                        </button>
                     </form>
 
                     <!-- Illustration -->
@@ -276,6 +229,12 @@
             </div>
         </div>
 
+        <div class="bg-reminder">
+            <div class="bg-reminder-holder">
+                <img src="img/reminder-bg.svg" alt="">
+                <img src="img/reminder-bg-2.svg" alt="">
+            </div>
+        </div>
 
 
         <!-- Functions -->
@@ -300,8 +259,21 @@
         <!-- Link Javascript Files, Buat File Lain -->
         <script src="assets/js/interface.js" defer></script>
         <script src="assets/js/reminder.js" defer></script>
-        <!-- <script src="assets/js/update-reminder.js" defer></script> -->
+        <script src="assets/js/alarm-reminder.js" defer></script>
+        <script src="assets/js/auto-break-notification.js"></script>
 
+        <script>
+            window.reminderFlags = {
+                added: <?php echo isset($_SESSION['reminder_added']) ? 'true' : 'false'; ?>,
+                updated: <?php echo isset($_SESSION['reminder_updated']) ? 'true' : 'false'; ?>,
+                deleted: <?php echo isset($_SESSION['reminder_deleted']) ? 'true' : 'false'; ?>
+            };
+        </script>
+        <?php
+        unset($_SESSION['reminder_added']);
+        unset($_SESSION['reminder_updated']);
+        unset($_SESSION['reminder_deleted']);
+        ?>
     </body>
 
     </html>

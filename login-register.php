@@ -1,7 +1,4 @@
     <?php
-
-    // Register Process
-
     session_start();
     require_once 'database/config.php';
 
@@ -24,6 +21,14 @@
 
                 // ✅ Get the correct inserted user_id
                 $user_id = $conn->insert_id;
+
+                $title = "Welcome to Wellness-Link!";
+                $message = "Start tracking your health journey now.";
+
+                $stmt = $conn->prepare("INSERT INTO notifications (user_id, title, message) VALUES (?, ?, ?)");
+                $stmt->bind_param("iss", $user_id, $title, $message);
+                $stmt->execute();
+                $stmt->close();
 
                 // ✅ Set session values correctly
                 $_SESSION['register_success'] = 'Registration successful.';

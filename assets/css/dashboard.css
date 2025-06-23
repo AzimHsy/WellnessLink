@@ -14,7 +14,7 @@
   font-size: 3.2rem;
 }
 
-.heading span {
+.heading h1 span {
   text-transform: capitalize;
   color: #44a3f7;
   font-family: "Karla", sans-serif;
@@ -24,10 +24,17 @@
   font-style: italic;
 }
 
+.heading h4 span {
+  color: #dfb837;
+  font-style: italic;
+  margin-left: 10px;
+}
+
 .heading h4 {
   display: block;
   font-size: 1.3rem;
   margin-top: 10px;
+  color: #8e8e8e;
 }
 
 .dashboard-container {
@@ -168,6 +175,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: auto;
 }
 
 .dashboard-card {

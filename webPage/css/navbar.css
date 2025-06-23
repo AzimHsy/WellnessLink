@@ -77,11 +77,12 @@
   justify-content: space-between;
   align-items: center;
   background-color: #1e1e1e;
-  padding: 23px 17px;
-  min-width: 110px;
+  padding: 22px 16px;
+  width: 110px;
   border-radius: 30px;
   backdrop-filter: blur(7px);
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .menu-btn {
@@ -177,13 +178,16 @@
   transform: translateY(-120%);
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .nav {
     justify-content: space-between;
+    padding: 16px 10px;
+    gap: 7px;
   }
 
   .logo a h4 {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    text-shadow: none;
   }
 
   .signup-btn-container a {
@@ -191,36 +195,36 @@
   }
 
   .menu-btn-container {
-    background-color: #1e1e1e;
-    padding: 20px 17px;
+    padding: 11px;
+    border-radius: 50%;
+    width: auto;
+    height: auto;
   }
 
-  .signup-btn-container {
-    padding: 14px 16px;
-  }
-
-  .hover-slide::before {
-    display: none;
-  }
-
-  .menu-btn p {
-    font-size: 0.9em;
-    display: none;
+  .menu-btn p,
+  .menu-btn p span,
+  .menu-btn p::before {
+    display: none !important;
   }
 
   .menu-svg svg {
+    position: relative;
     width: 20px;
     height: 20px;
   }
+}
 
-  .hover-slide::before,
-  .hover-slide span {
-    font-size: 0.95em;
+@media (max-width: 480px) {
+  .logo a h4 {
+    font-size: 14px;
+    text-shadow: none;
   }
 
-  .cta-label p {
-    color: #1e1e1e;
-    font-size: 0.8em;
-    font-weight: 400;
+  .signup-btn-container {
+    padding: 15px 10px;
+  }
+
+  .signup-btn-container a {
+    font-size: 12px;
   }
 }

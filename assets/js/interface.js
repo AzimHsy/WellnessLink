@@ -114,43 +114,62 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 let notificationTimeout;
+window.notifications = [];
 
-// ✅ Define notifications list
-const notifications = [
-  {
-    title: "Medication Reminder",
-    message: "Don't forget to take your pills today!",
-  },
-  {
-    title: "Hydration Reminder",
-    message: "You’ve only had 3 glasses of water today.",
-  },
-  {
-    title: "Stretch Reminder",
-    message: "Stand up and stretch your body for 2 minutes.",
-  },
-];
-
-// ✅ Set badge immediately on load
 const badge = document.getElementById("notificationCount");
-badge.textContent = notifications.length;
-badge.style.display = notifications.length > 0 ? "inline-block" : "none";
+const notifyBtn = document.getElementById("notifyBtn");
 
-// ✅ Main function to show all notifications
-function showMultipleNotifications(notificationsList, duration = 3000) {
+// 🔁 1. Fetch notifications silently on page load
+fetch("get-notification.php")
+  .then((res) => res.json())
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      // Store data globally
+      window.notifications = data;
+
+      // Update badge only if not shown yet this session
+      if (!sessionStorage.getItem("notificationsShown")) {
+        badge.textContent = data.length;
+        badge.style.display = "inline-block";
+      }
+
+      // Mark as read immediately (optional)
+      const ids = data.map((n) => n.id).join(",");
+      fetch("mark-notifications-read.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `ids=${ids}`,
+      });
+    } else {
+      // Fallback notification
+      window.notifications = [
+        {
+          title: "No Notifications Available!",
+          message: "You're all caught up for now.",
+        },
+      ];
+    }
+  });
+
+// 🛎️ 2. Notification button click handler
+notifyBtn.addEventListener("click", () => {
+  if (window.notifications.length > 0) {
+    showMultipleNotifications(window.notifications);
+    sessionStorage.setItem("notificationsShown", "true");
+    badge.style.display = "none";
+  }
+});
+
+// ✅ 3. Show notification cards
+function showMultipleNotifications(notificationsList, duration = 4000) {
   const container = document.getElementById("notificationBox");
-  const notifyBtn = document.getElementById("notifyBtn");
 
-  container.innerHTML = ""; // Clear previous
+  container.innerHTML = "";
   clearTimeout(notificationTimeout);
 
-  // Disable button
+  // Disable button temporarily
   notifyBtn.disabled = true;
   notifyBtn.classList.add("disabled");
-
-  // Update badge
-  badge.textContent = notificationsList.length;
-  badge.style.display = notificationsList.length > 0 ? "inline-block" : "none";
 
   const elements = [];
 
@@ -180,7 +199,7 @@ function showMultipleNotifications(notificationsList, duration = 3000) {
     elements.push(inner);
   });
 
-  // Animate entrance
+  // Entrance animation
   gsap.from(elements, {
     opacity: 0,
     x: 100,
@@ -189,7 +208,7 @@ function showMultipleNotifications(notificationsList, duration = 3000) {
     stagger: 0.15,
   });
 
-  // Auto-close all
+  // Auto-close after duration
   if (duration > 0) {
     notificationTimeout = setTimeout(() => {
       hideAllNotifications();
@@ -226,12 +245,10 @@ function showMultipleNotifications(notificationsList, duration = 3000) {
   });
 }
 
-// ✅ Hide all notifications function
 function hideAllNotifications() {
   const container = document.getElementById("notificationBox");
-  const notifyBtn = document.getElementById("notifyBtn");
-  const all = container.querySelectorAll(".notification-inner");
 
+  const all = container.querySelectorAll(".notification-inner");
   gsap.to(all, {
     opacity: 0,
     x: 100,
@@ -246,8 +263,3 @@ function hideAllNotifications() {
     },
   });
 }
-
-// ✅ Button click listener
-document.getElementById("notifyBtn").addEventListener("click", () => {
-  showMultipleNotifications(notifications);
-});

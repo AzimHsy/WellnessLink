@@ -22,16 +22,15 @@ const remainingText = document.getElementById("glasses-remaining");
 const addGlassBtn = document.getElementById("add-glass");
 const resetGlassBtn = document.getElementById("reset-glass");
 
-// 🔁 Optional Daily Reset Logic (disabled for now)
-if (false) {
-  const today = new Date().toLocaleDateString();
-  const lastRecordedDate = localStorage.getItem(`lastRecordedDate_${userId}`);
+// ✅ Daily Reset Logic: resets every new day (based on local date)
+const today = new Date().toLocaleDateString();
+const lastRecordedDateKey = `lastRecordedDate_${userId}`;
+const lastRecordedDate = localStorage.getItem(lastRecordedDateKey);
 
-  if (lastRecordedDate !== today) {
-    glassesTaken = 0;
-    localStorage.setItem(`lastRecordedDate_${userId}`, today);
-    localStorage.setItem(storageKey, glassesTaken);
-  }
+if (lastRecordedDate !== today) {
+  glassesTaken = 0;
+  localStorage.setItem(lastRecordedDateKey, today);
+  localStorage.setItem(storageKey, glassesTaken);
 }
 
 // 🔄 Reset Button
@@ -96,9 +95,22 @@ function updateUI() {
   saveWaterIntake();
 
   // Button states
-  addGlassBtn.disabled = glassesTaken >= maxGlasses;
-  addGlassBtn.textContent =
-    glassesTaken >= maxGlasses ? "Goal Completed!" : "Add Glass";
+  if (glassesTaken >= maxGlasses) {
+    addGlassBtn.disabled = true;
+    addGlassBtn.textContent = "Goal Completed!";
+    addGlassBtn.classList.add("goal-completed");
+
+    // Notify backend that user completed water goal
+    fetch("add-notification.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `title=Water Goal Completed&message=You’ve completed your 8-glass water intake today!`,
+    });
+  } else {
+    addGlassBtn.disabled = false;
+    addGlassBtn.textContent = "Add Glass";
+    addGlassBtn.classList.remove("goal-completed");
+  }
 
   resetGlassBtn.disabled = glassesTaken === 0;
   resetGlassBtn.style.opacity = glassesTaken === 0 ? "0.5" : "1";
@@ -107,12 +119,50 @@ function updateUI() {
 
 // 💾 Save to database
 function saveWaterIntake() {
-  fetch("save_water.php", {
+  fetch("save-water.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `glasses_taken=${glassesTaken}`,
   });
 }
 
-// 🔁 Initial render
+const healthTips = [
+  "Stay hydrated for better health.",
+  "Drink water before you feel thirsty.",
+  "Water helps maintain energy and focus.",
+  "Hydration supports kidney function.",
+  "Start your morning with a glass of water.",
+  "Replace sugary drinks with water.",
+  "Eat fruits high in water like watermelon.",
+];
+
+let tipIndex = 0;
+const tipElement = document.getElementById("health-tip-text");
+
+// ✅ Show first tip immediately
+tipElement.textContent = healthTips[tipIndex];
+tipIndex = (tipIndex + 1) % healthTips.length;
+
+function showNextTip() {
+  // Fade out
+  gsap.to(tipElement, {
+    opacity: 0,
+    duration: 0.5,
+    onComplete: () => {
+      // Change text
+      tipElement.textContent = healthTips[tipIndex];
+      tipIndex = (tipIndex + 1) % healthTips.length;
+
+      // Fade in
+      gsap.to(tipElement, {
+        opacity: 1,
+        duration: 0.5,
+      });
+    },
+  });
+}
+
+// ✅ Change every 3 seconds
+setInterval(showNextTip, 5000);
+
 updateUI();

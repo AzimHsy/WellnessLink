@@ -29,7 +29,11 @@ session_start();
       <div class="small-spacer"></div>
     </div>
     <div class="find-clinic-btn">
-      <button onclick="startClinicLocator()">Find Nearby Clinics</button>
+      <div class="buttons">
+        <button class="btn" id="clinic-btn" onclick="startClinicLocator()"><span></span>
+          <p data-start="Clinic Found!" data-text="start!" data-title="Find Nearby Clinic"></p>
+        </button>
+      </div>
     </div>
     <div class="google-maps">
       <div id="map"></div>
@@ -52,6 +56,10 @@ session_start();
     <div class="clinic-list">
       <div id="clinics"></div>
     </div>
+  </div>
+
+  <div class="background-clinic">
+    <img src="img/car-bg.svg" alt="">
   </div>
 
   <!-- Functions -->
@@ -77,6 +85,9 @@ session_start();
   <script src="assets/js/interface.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="assets/js/maps.js" defer></script>
+  <script src="assets/js/alarm-reminder.js" defer></script>
+  <script src="assets/js/auto-break-notification.js"></script>
+
   <script
     async
     defer

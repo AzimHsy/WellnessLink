@@ -2,9 +2,6 @@
 session_start();
 include "database/config.php";
 
-// TEMP: For development only
-$_SESSION['user_id'] = 1;
-
 $user_id = $_SESSION['user_id'] ?? null;
 
 if (!$user_id) {
@@ -13,12 +10,14 @@ if (!$user_id) {
     exit;
 }
 
-$sql = "SELECT date, glasses_taken FROM water_intake
+// Example logic (you can adjust this based on how you track adherence)
+$sql = "SELECT date, taken FROM medication_logs
         WHERE user_id = ?
+        AND date >= CURDATE() - INTERVAL 6 DAY
         ORDER BY date ASC";
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
-
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -27,6 +26,5 @@ while ($row = $result->fetch_assoc()) {
     $data[] = $row;
 }
 
-// ✅ Output only once
 header('Content-Type: application/json');
 echo json_encode($data, JSON_PRETTY_PRINT);

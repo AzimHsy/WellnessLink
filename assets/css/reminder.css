@@ -115,14 +115,66 @@
 }
 
 .card form button {
+  position: relative;
+  display: flex;
   width: 100%;
-  padding: 15px 17px;
-  background-color: #1d7087;
-  color: #fff;
-  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
+  background: #183153;
+  font-family: "Montserrat", sans-serif;
+  box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
   border: none;
-  margin-top: 4px;
+}
+
+.card form button:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background: #0199ff;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+.card form button:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+.card form button span {
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  padding: 12px 16px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  /* letter-spacing: 0.3em; */
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+.card form button:hover span {
+  color: #183153;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 input::placeholder {
@@ -412,4 +464,37 @@ body.modal-open {
 }
 .repeat-custom {
   background-color: #fdd835;
+}
+
+.bg-reminder {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+.bg-reminder-holder {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bg-reminder img {
+  width: 400px;
+  opacity: 0.7;
+}
+
+.bg-reminder img:first-child {
+  transform: scaleX(-1);
+  margin-left: 5%;
+  margin-top: -7%;
+}
+
+.bg-reminder img:last-child {
+  margin-right: 5em;
+  margin-top: 16em;
 }

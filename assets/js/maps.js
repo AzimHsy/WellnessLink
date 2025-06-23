@@ -4,7 +4,14 @@ let map,
   markers = [];
 
 function startClinicLocator() {
-  // Show UI elements when the button is clicked
+  const btn = document.getElementById("clinic-btn");
+  const p = btn.querySelector("p");
+
+  btn.classList.add("start");
+  p.innerText = p.getAttribute("data-start");
+  btn.disabled = true;
+  btn.style.cursor = "not-allowed";
+
   document.getElementById("searchBox").style.display = "block";
   document.getElementById("manualLocation").style.display = "block";
   if (navigator.geolocation) {
@@ -142,3 +149,14 @@ function filterClinics() {
       list.appendChild(card);
     });
 }
+
+const clinicBtn = document.getElementById("clinic-btn");
+
+clinicBtn.addEventListener("click", function () {
+  clinicBtn.classList.add("start");
+
+  clinicBtn.disabled = true;
+
+  const pElement = clinicBtn.querySelector("p");
+  pElement.innerText = clinicBtn.getAttribute("data-start");
+});

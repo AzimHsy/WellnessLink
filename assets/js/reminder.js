@@ -1,4 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const flags = window.reminderFlags || {};
+
+  if (flags.added) {
+    Swal.fire({
+      icon: "success",
+      title: "Reminder Set!",
+      text: "You'll get notified at the right time.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
+
+  if (flags.updated) {
+    Swal.fire({
+      icon: "success",
+      title: "Updated!",
+      text: "Reminder updated successfully.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
+
+  if (flags.deleted) {
+    Swal.fire({
+      icon: "success",
+      title: "Deleted!",
+      text: "Reminder has been successfully deleted.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
+
   document.querySelectorAll(".delete-form").forEach((form) => {
     let allowSubmit = false;
 

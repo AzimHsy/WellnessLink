@@ -2,6 +2,9 @@
 session_start();
 require_once 'database/config.php';
 
+// echo "Logged in as user ID: " . ($_SESSION['user_id'] ?? 'Not set');
+// exit;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_health_record'])) {
   $disease = $_POST['disease'] === 'Others' ? $_POST['custom_disease'] : $_POST['disease'];
   $medication_name = $_POST['medication_name'];
@@ -47,8 +50,6 @@ $diseaseDescriptions = [
 
 $disease = $data['disease'];
 $description = $diseaseDescriptions[$disease] ?? 'No description available for this condition.';
-
-
 
 ?>
 
@@ -135,9 +136,10 @@ $description = $diseaseDescriptions[$disease] ?? 'No description available for t
 
 
   <div class="heading">
-    <h1>Hi <span><?php echo htmlspecialchars($_SESSION['username']); ?>,</span> here's your health snapshot!</h1>
-    <h4>Health Tip : Stay active for at least 30 minutes each day</h4>
+    <h1>Hi <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>, here's your health snapshot!</h1>
+    <h4>Health Tips: <span id="header-health-tip">Stay active for at least 30 minutes each day</span></h4>
   </div>
+
 
   <div class="dashboard-container">
     <div class="dashboard-content">
@@ -233,7 +235,6 @@ $description = $diseaseDescriptions[$disease] ?? 'No description available for t
     </div>
   </div>
 
-
   <!-- Functions -->
   <?php include 'includes/functions.php'; ?>
 
@@ -257,6 +258,9 @@ $description = $diseaseDescriptions[$disease] ?? 'No description available for t
   <!-- Link Javascript Files, Buat File Lain -->
   <script src="assets/js/interface.js" defer></script>
   <script src="assets/js/dashboard.js" defer></script>
+  <script src="assets/js/alarm-reminder.js" defer></script>
+  <script src="assets/js/auto-break-notification.js" defer></script>
+
 </body>
 
 </html>

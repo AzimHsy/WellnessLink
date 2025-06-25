@@ -92,7 +92,7 @@ session_start();
   <script
     async
     defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnku3I6HSOGz1uqlo-_eUm13_hwS9DxAw&libraries=places"></script>
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
 </body>
 
 </html>
